@@ -1,0 +1,23 @@
+{
+    "name": "hamiket-task",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "A simple task management CRUD application",
+    "main": "index.js",
+    "scripts": {
+        "test": "node --env-file=.env --watch src/app.js"
+    },
+    "keywords": [
+        "Task"
+    ],
+    "author": "Sepehr Yahyaee",
+    "license": "ISC",
+    "dependencies": {
+        "@prisma/client": "^6.2.1",
+        "express": "^4.21.2",
+        "jsonwebtoken": "^9.0.2"
+    },
+    "devDependencies": {
+        "prisma": "^6.2.1"
+    }
+}
