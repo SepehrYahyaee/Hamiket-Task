@@ -1,0 +1,21 @@
+meta {
+  name: updateTask
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:3000/api/v1/tasks/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjllNDI0NWE1LTU1YTQtNGIwZi05ZGY0LWM4ZTg1NDc5NzFiZiIsImlhdCI6MTczNzM3ODE1NywiZXhwIjoxNzM3NDY0NTU3fQ.tA7PyY7Yk0bfweoBl3gmhr7J7aStChYWBq8tIqGk_Qk
+}
+
+body:json {
+  {
+    "status": "Pending"
+  }
+}
