@@ -19,7 +19,7 @@ class TaskService {
         });
     }
 
-    retrieveAllTasksOfUser(user_id) {
+    retrieveAllTasksOfUser(user_id, limit, offset) {
         return this.#db.task.findMany({
             where: {
                 user_id,
@@ -29,6 +29,16 @@ class TaskService {
                 name: true,
                 description: true,
                 status: true,
+            },
+            take: limit,
+            skip: offset,
+        });
+    }
+
+    countUserTasks(user_id) {
+        return this.#db.task.count({
+            where: {
+                user_id,
             },
         });
     }

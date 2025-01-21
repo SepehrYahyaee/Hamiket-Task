@@ -21,9 +21,12 @@ class UserController {
         const hash = await userProvider.hash(password);
         const createdUser = await userService.insertUser(userName, hash);
 
-        res.status(201).send(
-            `A user with username "${createdUser.user_name}" has successfully created!`,
-        );
+        res.status(201).send({
+            data: {
+                user: createdUser,
+            },
+            success: true,
+        });
 
         return logger.info(
             `A new user named "${req.body.userName}" registered.`,
@@ -49,7 +52,12 @@ class UserController {
             process.env.ACCESS_TOKEN_EXPIRE_TIME,
         );
 
-        res.status(200).send(token);
+        res.status(200).send({
+            data: {
+                token,
+            },
+            success: true,
+        });
 
         return logger.info(`"${user.user_name}" has logged in.`);
     }

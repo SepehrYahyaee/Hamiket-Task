@@ -14,13 +14,18 @@ export function globalErrorHandler(error, req, res, next) {
         res.status(error.statusCode).send({
             status: error.statusCode,
             message: error.message,
-            stack: error.stack.split("\n")[1],
+            stack:
+                process.env.NODE_ENV === "development"
+                    ? error.stack.split("\n")[1]
+                    : null,
+            success: false,
         });
     } else if (error instanceof PrismaClientKnownRequestError) {
         const errorMessage = {
             mode: "DB prisma Error",
             code: error.code,
             message: error.message,
+            success: false,
         };
 
         logger.error(`Error: ${error.message}`);
@@ -31,6 +36,7 @@ export function globalErrorHandler(error, req, res, next) {
             mode: "DB Validation Error",
             code: error.code,
             message: error.message,
+            success: false,
         };
 
         logger.error(`Error: ${error.message}`);
@@ -39,6 +45,13 @@ export function globalErrorHandler(error, req, res, next) {
     } else {
         logger.error(`Error: ${error.message}`);
         console.error("Critical Error:", error);
-        res.status(500).send({ msg: error.message, stack: error.stack });
+        res.status(500).send({
+            msg: error.message,
+            stack:
+                process.env.NODE_ENV === "development"
+                    ? error.stack.split("\n")[1]
+                    : null,
+            success: false,
+        });
     }
 }

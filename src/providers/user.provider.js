@@ -36,7 +36,7 @@ class UserProvider {
             const accessToken = jwt.sign(payload, secretKey, {
                 expiresIn: expireTime,
             });
-            return { accessToken };
+            return accessToken;
         } catch (error) {
             throw new AppError("Failed to create the access token!", 500);
         }

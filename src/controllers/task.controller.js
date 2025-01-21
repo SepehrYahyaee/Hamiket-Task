@@ -15,9 +15,12 @@ class TaskController {
 
         const task = await taskService.insertTask(name, description, userId);
 
-        res.status(201).send(
-            `Task "${task.name}" has been successfully created with id "${task.id}"`,
-        );
+        res.status(201).send({
+            data: {
+                task,
+            },
+            success: true,
+        });
 
         return logger.info(
             `New task with the id of ${task.id} has been created by user ${task.user_id}.`,
@@ -25,11 +28,30 @@ class TaskController {
     }
 
     async getUserTasks(req, res) {
+        const page = parseInt(req.query.page, 10) || 1;
+        const limit = parseInt(req.query.limit, 10) || 1;
+        const offset = (page - 1) * limit;
         const userId = req.user.userId;
 
-        const tasks = await taskService.retrieveAllTasksOfUser(userId);
+        // Pagination
+        const tasks = await taskService.retrieveAllTasksOfUser(
+            userId,
+            limit,
+            offset,
+        );
+        const totalTasks = await taskService.countUserTasks(userId);
+        const totalPages = Math.ceil(totalTasks / limit);
 
-        return res.status(200).send(tasks);
+        return res.status(200).send({
+            data: {
+                tasks,
+                totalTasks,
+                totalPages,
+                currentPage: page,
+                pageSize: limit,
+            },
+            success: true,
+        });
     }
 
     async updateSpecificTask(req, res) {
@@ -47,7 +69,12 @@ class TaskController {
             updateStatus,
         );
 
-        res.status(200).send(updatedTask);
+        res.status(200).send({
+            data: {
+                task: updatedTask,
+            },
+            success: true,
+        });
 
         return logger.info(
             `Task ${task.id} status has been successfully updated to ${updatedTask.status}`,
@@ -65,9 +92,12 @@ class TaskController {
 
         const deletedTask = await taskService.removeSpecificTask(taskId);
 
-        res.status(204).send(
-            `Task ${deletedTask.name} successfully got deleted!`,
-        );
+        res.status(204).send({
+            data: {
+                task: deletedTask,
+            },
+            success: true,
+        });
 
         return logger.info(`Task ${task.id} has been deleted by it's author.`);
     }
