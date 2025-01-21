@@ -1,5 +1,6 @@
-import { userService } from "../services/index.js";
 import { userProvider } from "../providers/index.js";
+import { userService } from "../services/index.js";
+import { AppError, logger } from "../utilities/index.js";
 
 class UserController {
     static instance;
@@ -14,17 +15,19 @@ class UserController {
 
         // If username already exists, return an error.
         const user = await userService.retrieveUserByUsername(userName);
-        if (user) throw new Error("Username is already in use!");
+        if (user) throw new AppError("Username is already in use!", 409);
 
         // Hash the password and then create the user.
         const hash = await userProvider.hash(password);
         const createdUser = await userService.insertUser(userName, hash);
 
-        return res
-            .status(201)
-            .send(
-                `A user with username "${createdUser.user_name}" has successfully created!`,
-            );
+        res.status(201).send(
+            `A user with username "${createdUser.user_name}" has successfully created!`,
+        );
+
+        return logger.info(
+            `A new user named "${req.body.userName}" registered.`,
+        );
     }
 
     async login(req, res) {
@@ -32,10 +35,12 @@ class UserController {
 
         // Check if the entered username and password matches.
         const user = await userService.retrieveUserByUsername(userName);
-        if (!user) throw new Error("Username or password does not match!");
+        if (!user)
+            throw new AppError("Username or password does not match!", 400);
 
         const verify = await userProvider.verify(password, user.password_hash);
-        if (!verify) throw new Error("Username or password does not match!");
+        if (!verify)
+            throw new AppError("Username or password does not match!", 400);
 
         // If it matches and passess the errors above, create the access token.
         const token = userProvider.createToken(
@@ -44,7 +49,9 @@ class UserController {
             process.env.ACCESS_TOKEN_EXPIRE_TIME,
         );
 
-        return res.status(200).send(token);
+        res.status(200).send(token);
+
+        return logger.info(`"${user.user_name}" has logged in.`);
     }
 }
 

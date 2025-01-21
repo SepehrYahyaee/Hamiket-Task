@@ -1,5 +1,6 @@
-import jwt from "jsonwebtoken";
 import crypto from "node:crypto";
+import jwt from "jsonwebtoken";
+import { AppError } from "../utilities/index.js";
 
 class UserProvider {
     static instance;
@@ -37,7 +38,7 @@ class UserProvider {
             });
             return { accessToken };
         } catch (error) {
-            throw new Error("Failed to create the access token!", 500);
+            throw new AppError("Failed to create the access token!", 500);
         }
     }
 }

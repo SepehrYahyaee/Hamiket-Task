@@ -6,18 +6,27 @@ import {
     updateTaskDto,
     deleteTaskDto,
 } from "../middlewares/index.js";
+import { asyncErrorHandler } from "../utilities/index.js";
 
 export const router = express.Router(); // api/v1
 
 router
     .route("/tasks")
-    .post(auth, createTaskDto, taskController.createTask)
-    .get(auth, taskController.getUserTasks);
+    .post(auth, createTaskDto, asyncErrorHandler(taskController.createTask))
+    .get(auth, asyncErrorHandler(taskController.getUserTasks));
 
 router
     .route("/tasks/:id")
-    .put(auth, updateTaskDto, taskController.updateSpecificTask);
+    .put(
+        auth,
+        updateTaskDto,
+        asyncErrorHandler(taskController.updateSpecificTask),
+    );
 
 router
     .route("/tasks/:id")
-    .delete(auth, deleteTaskDto, taskController.deleteSpecificTask);
+    .delete(
+        auth,
+        deleteTaskDto,
+        asyncErrorHandler(taskController.deleteSpecificTask),
+    );

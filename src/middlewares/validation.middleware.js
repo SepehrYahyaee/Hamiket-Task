@@ -1,11 +1,12 @@
 import { body, param, validationResult, checkExact } from "express-validator";
+import { AppError } from "../utilities/index.js";
 
 export function validationErrorHandler(req, res, next) {
     try {
         const isValid = validationResult(req);
         if (!isValid.isEmpty()) {
             const message = isValid.errors[0].msg;
-            throw new Error(message, 400);
+            throw new AppError(message, 400);
         } else {
             next();
         }
