@@ -33,6 +33,8 @@ async function main() {
             user_id: uuid,
         },
     });
+
+    console.log("Seed generated!");
 }
 
 main();

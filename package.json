@@ -5,7 +5,7 @@
     "description": "A simple task management CRUD application",
     "main": "index.js",
     "scripts": {
-        "db": "npx prisma migrate && node ./prisma/seeds.js",
+        "db": "npx prisma migrate deploy && node ./prisma/seeds.js",
         "test": "node --env-file=.env --watch src/app.js"
     },
     "keywords": [

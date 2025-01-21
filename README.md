@@ -7,10 +7,11 @@
 
 سپس فایل `env.` خودتان را بسازید تا متغیر های محیطی مورد نیاز را ست کنید:
 
-- `DATABASE_URL = mysql://username:password@localhost:3306/mydb`
-- `PORT = 3000 or your desired port`
-- `SECRET_KEY = RandomSecretKey`
-- `ACCESS_TOKEN_EXPIRE_TIME = 1d`
+- PORT=3000
+- DATABASE_URL="mysql://username:password@localhost:3306/dbName"
+- SECRET_KEY="randomsecret"
+- ACCESS_TOKEN_EXPIRE_TIME="1d"
+- NODE_ENV="production"
 
 پس از آنکه فایل env. خود را ساختید با استفاده از دستورات زیر به ترتیب پروژه را می توانید اجرا کنید:
 
