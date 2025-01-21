@@ -38,7 +38,8 @@
     Hamiket-Task/
         ├── prisma/
         │   ├── migrations/
-        │   └── schema.prisma
+        │   ├── schema.prisma
+        │   └── seeds.js
         ├── src/
             ├── controllers/
             │   ├── index.js
@@ -66,9 +67,14 @@
             │   ├── globalErrorHandler.util.js
             │   ├── index.js
             │   └── logger.util.js
-        ├── tests/
+        ├── tests/...
+        ├── .gitignore
+        ├── ERD.png
         ├── app.js
-        └── package.json
+        ├── package.json
+        ├── package-lock.json
+        ├── README.md
+        └── swagger.json
 
 ### Controllers
 کنترلر ها **Endpoint** های ما هستند که وظیفه برگرداندن response و status code مناسب به کاربر را بر عهده دارند. تمامی فانکشن هایی که مربوط به مسیر های تعیین شده هستند و پاسخ نهایی را می دهند در این قسمت قرار دارند.

@@ -128,3 +128,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# prisma migration_lock
+prisma/migrations/migration_lock.toml
