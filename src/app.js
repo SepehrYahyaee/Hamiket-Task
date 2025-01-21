@@ -1,7 +1,9 @@
 import express from "express";
 import morgan from "morgan";
+import swaggerUi from "swagger-ui-express";
 import { userRoutes, taskRoutes } from "./routes/index.js";
 import { globalErrorHandler, logger } from "./utilities/index.js";
+import swaggerDocument from "../swagger.json" assert { type: "json" };
 
 const app = express();
 
@@ -14,6 +16,9 @@ app.use(
         stream: { write: (message) => logger.info(message.trim()) },
     }),
 );
+
+// Swagger Setup
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Routing
 app.use("/api/v1", userRoutes);

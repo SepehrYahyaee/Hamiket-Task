@@ -20,11 +20,11 @@
 
 برای مشاهده مسیر ها می توانید به `localhost:PORT/api-docs` برای مشاهده ی داکیومنت Swagger رجوع فرمایید. همچنین دیتاهای سمپلی که توسط فایل seeds به دیتابیس وارد خواهند شد به صورت زیر می باشند:
 
-- userName: "Hasan" - password: "1234"
+- userName: "Hasan" - password: "12345678"
 
 همچنین یک تسک تستی ساخته شده است:
 
-- name: "New Task" - description: "A sample description for this task."
+- name: "New task" - description: "A sample description for this task."
 
 ## دیتابیس و مدل ها و Entity ها
 دیتابیس درخواستی برای انجام این تسک کوتاه MySQL بوده است و ORM انتخابی هم Prisma می باشد. ERD طراحی شده برای این تسک به صورت زیر می باشد:
@@ -34,40 +34,40 @@
 ## ساختار فولدر بندی و Structure
 برای پیاده سازی بکند این تسک از Express.js استفاده شده است و از آنجایی که این فریم ورک یک فریم ورک Unopinionated است پس ساختاری که در این پروژه استفاده می شود کاملا به عهده برنامه نویس است. ساختاری که من استفاده کردم به شرح زیر است:
 
-Hamiket-Task/
-    ├── prisma/
-    │   ├── migrations/
-    │   └── schema.prisma
-    ├── src/
-        ├── controllers/
-        │   ├── index.js
-        │   ├── task.controllers.js
-        │   └── user.controllers.js
-        ├── middlewares/
-        │   ├── authorization.middleware.js
-        │   ├── index.js
-        │   └── validation.middleware.js
-        ├── providers/
-        │   ├── index.js
-        │   └── user.provider.js
-        ├── routes/
-        │   ├── index.js
-        │   ├── task.routes.js
-        │   └── user.routes.js
-        ├── services/
-        │   ├── index.js
-        │   ├── task.services.js
-        │   └── user.services.js
-        ├── utilities/
-        │   ├── asyncErrorHandler.util.js
-        │   ├── customErrorClass.util.js
-        │   ├── databaseInstance.util.js
-        │   ├── globalErrorHandler.util.js
-        │   ├── index.js
-        │   └── logger.util.js
-    ├── tests/
-    ├── app.js
-    └── package.json
+    Hamiket-Task/
+        ├── prisma/
+        │   ├── migrations/
+        │   └── schema.prisma
+        ├── src/
+            ├── controllers/
+            │   ├── index.js
+            │   ├── task.controllers.js
+            │   └── user.controllers.js
+            ├── middlewares/
+            │   ├── authorization.middleware.js
+            │   ├── index.js
+            │   └── validation.middleware.js
+            ├── providers/
+            │   ├── index.js
+            │   └── user.provider.js
+            ├── routes/
+            │   ├── index.js
+            │   ├── task.routes.js
+            │   └── user.routes.js
+            ├── services/
+            │   ├── index.js
+            │   ├── task.services.js
+            │   └── user.services.js
+            ├── utilities/
+            │   ├── asyncErrorHandler.util.js
+            │   ├── customErrorClass.util.js
+            │   ├── databaseInstance.util.js
+            │   ├── globalErrorHandler.util.js
+            │   ├── index.js
+            │   └── logger.util.js
+        ├── tests/
+        ├── app.js
+        └── package.json
 
 ### Controllers
 کنترلر ها **Endpoint** های ما هستند که وظیفه برگرداندن response و status code مناسب به کاربر را بر عهده دارند. تمامی فانکشن هایی که مربوط به مسیر های تعیین شده هستند و پاسخ نهایی را می دهند در این قسمت قرار دارند.
